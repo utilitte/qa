@@ -1,0 +1,34 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+RULESET=${RULESET:='ruleset.xml'}
+EXTENSIONS=${EXTENSIONS:='php,phtml,phpt'}
+EXCLUDE_FOLDERS=${EXCLUDE_FOLDERS:='*/temp,*/tmp'}
+FOLDERS=()
+
+# Try several ruleset paths:
+# - <package-dir>/$RULESET
+# - <package-dir>/$RULESET.xml
+# - <vendor-dir>/warengo/qa/ruleset.xml
+if [ -f "${DIR}/../../${RULESET}" ]; then
+    RULESET="${DIR}/../../${RULESET}"
+elif [ -f "${DIR}/../../${RULESET}.xml" ]; then
+    RULESET="${DIR}/../../${RULESET}.xml"
+else
+    RULESET="${DIR}/../warengo/qa/ruleset.xml"
+fi
+
+# Show installed coding standards
+${DIR}/phpcs -i
+
+# Run fixing
+if [ -z "$1" ]; then
+    # Run codefixer with default args
+    [ -d "app" ] && FOLDERS+=('app')
+    [ -d "src" ] && FOLDERS+=('src')
+    [ -d "tests" ] && FOLDERS+=('tests')
+    ${DIR}/phpcbf --standard="${RULESET}" --ignore="${EXCLUDE_FOLDERS}" --extensions="${EXTENSIONS}" --colors --encoding=utf-8 -nsp ${FOLDERS[*]}
+else
+    # Run codefixer
+    ${DIR}/phpcbf --standard="${RULESET}" --ignore="${EXCLUDE_FOLDERS}" --extensions="${EXTENSIONS}" --colors --encoding=utf-8 -nsp $@
+fi
