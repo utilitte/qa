@@ -15,7 +15,7 @@ if [ -f "${DIR}/../../${RULESET}" ]; then
 elif [ -f "${DIR}/../../${RULESET}.xml" ]; then
     RULESET="${DIR}/../../${RULESET}.xml"
 else
-    RULESET="${DIR}/../warengo/qa/ruleset.xml"
+    RULESET="${DIR}/../utilitte/qa/ruleset.xml"
 fi
 
 # Show installed coding standards
