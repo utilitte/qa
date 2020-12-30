@@ -20,6 +20,7 @@
 		<exclude name="SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment.MultiLinePropertyComment" />
 		
 		<exclude name="SlevomatCodingStandard.Functions.DisallowArrowFunction.DisallowedArrowFunction" />
+		<exclude name="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator.RequiredNumericLiteralSeparator" />
 
 		<exclude name="Squiz.WhiteSpace.MemberVarSpacing" /> <!-- TODO: own sniff -->
 	</rule>
